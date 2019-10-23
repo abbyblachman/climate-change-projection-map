@@ -12,4 +12,4 @@ The goal of this project is to create an application where a user can select a c
 
 For this project, we are using an API called <a href="https://api.meteostat.net/">meteostat</a> which gives us current weather projections. API key: ELTLnGss.
 
-There is a 200 calls per API key per hour limit, so if you are working on the project outside of class, you may want to create your own key. 
+There is a 200 calls per API key per hour limit, so if you are working on the project outside of class, you may want to create your own key. You will get a `403` error if you hit the limit. 
