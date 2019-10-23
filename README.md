@@ -6,4 +6,4 @@ The goal of this project is to create an application where a user can select a c
 
 <strong>API</strong>
 
-For this project, we are using an API called <a href="https://api.meteostat.net/">meteostat which gives us current weather projections. 
+For this project, we are using an API called <a href="https://api.meteostat.net/">meteostat</a> which gives us current weather projections. 
