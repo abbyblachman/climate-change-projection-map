@@ -5,23 +5,67 @@ $(document).ready(function() {
     // City
 var clickedCities = [];
 var cities = [{
-    label: 'City #1',
+    label: 'Chicago',
     data: [30, 40, 50, 60, 70, 80, 90, 100, 110], 
     backgroundColor: [
-        'rgba(12, 99, 132, 0.2)'
+        'rgba(21, 152, 243, 0.2)'
     ],
     borderColor: [
-        'rgba(12, 99, 132, 1)'
+        'rgba(21, 152, 243, 1)'
     ],
     borderWidth: 1
 }, {
-    label: 'City #2',
+    label: 'New York',
     data: [110, 100, 90, 80, 70, 60, 50, 40, 30], 
     backgroundColor: [
         'rgba(255, 99, 132, 0.2)'
     ],
     borderColor: [
         'rgba(255, 99, 132, 1)'
+    ],
+    borderWidth: 1
+},
+{
+    label: 'Los Angeles',
+    data: [102, 100, 96, 100, 70, 30, 50, 40, 20], 
+    backgroundColor: [
+        'rgba(6, 146, 8, 0.2)'
+    ],
+    borderColor: [
+        'rgba(6, 146, 8, 1)'
+    ],
+    borderWidth: 1
+},
+{
+    label: 'Houston',
+    data: [2, 10, 96, 84, 70, 35, 60, 92, 20], 
+    backgroundColor: [
+        'rgba(249, 141, 12, 0.2)'
+    ],
+    borderColor: [
+        'rgba(249, 141, 12, 1)'
+    ],
+    borderWidth: 1
+},
+{
+    label: 'Philadelphia',
+    data: [12, 34, 70, 80, 40, 50, 100, 40, 20], 
+    backgroundColor: [
+        'rgba(23, 2, 118, 0.2)'
+    ],
+    borderColor: [
+        'rgba(23, 2, 118, 1)'
+    ],
+    borderWidth: 1
+}, 
+{
+    label: 'Dallas',
+    data: [6, 80, 12, 100, 3, 94, 20, 77, 2], 
+    backgroundColor: [
+        'rgba(252, 62, 241, 0.2)'
+    ],
+    borderColor: [
+        'rgba(252, 62, 241, 1)'
     ],
     borderWidth: 1
 }]
@@ -56,11 +100,26 @@ var cities = [{
                         beginAtZero: true
                     }
                 }]
-            }
+            },
+            animation: {
+                duration: 0
+            },
+            hover: {
+                animationDuration: 0
+            },
+            responsiveAnimationDuration: 0
         }
         //
         
     });
+    myChart.update()
+}
+
+function showChart(i) {
+    if (clickedCities.indexOf(cities[i]) < 0) {
+        clickedCities.push(cities[i]);
+        chartOne(clickedCities);
+    }
 }
 
 function init() {
@@ -75,20 +134,11 @@ function init() {
 
     // Submit dropdown 
         // Dropdown function 
-$( ".target" ).change(function() {
-    clickedCities.push(cities[1]);
-    chartOne(clickedCities);
-    });
     
-$('.js-submit-one').change(function() {
-    clickedCities.push(cities[0]);
-    chartOne(clickedCities);
-})
+$('.js-submit').on('click', function() {
+    chartNumber = $(this).attr('data-index');
+    showChart(chartNumber);
 
-$('.js-submit-two').change(function() {
-    clickedCities.push(cities[1]);
-    console.log(clickedCities);
-    chartOne(clickedCities);
 })
 
     // Click station
