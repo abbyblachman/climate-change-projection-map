@@ -2,83 +2,18 @@ $(document).ready(function() {
 //jquery init 
 
 // variables
-var chicagoTemps = [];
     // City
 var clickedCities = [];
 var cities = [
     { label: '',
+    stationNumber: 0, 
     backgroundColor: [
         'rgba(255, 255, 255, 0.2)'
     ],
     borderColor: [
         'rgba(255, 255, 255, 1)'
     ],
-    },
-    {
-    label: 'Chicago',
-    data: chicagoTemps, 
-    backgroundColor: [
-        'rgba(21, 152, 243, 0.2)'
-    ],
-    borderColor: [
-        'rgba(21, 152, 243, 1)'
-    ],
-    borderWidth: 1
-}, {
-    label: 'New York',
-    data: [110, 100, 90, 80, 70, 60, 50, 40, 30], 
-    backgroundColor: [
-        'rgba(255, 99, 132, 0.2)'
-    ],
-    borderColor: [
-        'rgba(255, 99, 132, 1)'
-    ],
-    borderWidth: 1
-},
-{
-    label: 'Los Angeles',
-    data: [102, 100, 96, 100, 70, 30, 50, 40, 20], 
-    backgroundColor: [
-        'rgba(6, 146, 8, 0.2)'
-    ],
-    borderColor: [
-        'rgba(6, 146, 8, 1)'
-    ],
-    borderWidth: 1
-},
-{
-    label: 'Houston',
-    data: [2, 10, 96, 84, 70, 35, 60, 92, 20], 
-    backgroundColor: [
-        'rgba(249, 141, 12, 0.2)'
-    ],
-    borderColor: [
-        'rgba(249, 141, 12, 1)'
-    ],
-    borderWidth: 1
-},
-{
-    label: 'Philadelphia',
-    data: [12, 34, 70, 80, 40, 50, 100, 110, 20], 
-    backgroundColor: [
-        'rgba(23, 2, 118, 0.2)'
-    ],
-    borderColor: [
-        'rgba(23, 2, 118, 1)'
-    ],
-    borderWidth: 1
-}, 
-{
-    label: 'Dallas',
-    data: [6, 80, 12, 100, 3, 94, 110, 77, 2], 
-    backgroundColor: [
-        'rgba(252, 62, 241, 0.2)'
-    ],
-    borderColor: [
-        'rgba(252, 62, 241, 1)'
-    ],
-    borderWidth: 1
-}]
+    }]
 
 // functions
 
@@ -90,27 +25,46 @@ function weatherCalc(a, b) {
 
 
     // Ajax call 
+function showData(station, cityName) {
     $.ajax({
-        url: "https://api.meteostat.net/v1/history/monthly?station=72530&start=2016-01&end=2016-12&key=ELTLnGss",
+        url: "https://api.meteostat.net/v1/history/monthly?station=" + station + "&start=2016-01&end=2016-12&key=ELTLnGss",
         method: "GET"
     })
         .then(function(response) {
-        console.log(response);
+        var temps = [];
         var julyTemp = response.data[6].temperature_mean;
         var july2020 = weatherCalc(julyTemp, 4);
-        chicagoTemps.push(july2020);
+        temps.push(july2020);
         var july2030 = weatherCalc(julyTemp, 14);
-        chicagoTemps.push(july2030);
+        temps.push(july2030);
         var july2040 = weatherCalc(julyTemp, 24);
-        chicagoTemps.push(july2040);
+        temps.push(july2040);
         var july2050 = weatherCalc(julyTemp, 34);
-        chicagoTemps.push(july2050);
+        temps.push(july2050);
         var july2060 = weatherCalc(julyTemp, 44);
-        chicagoTemps.push(july2060);
+        temps.push(july2060);
         var july2070 = weatherCalc(julyTemp, 54);
-        chicagoTemps.push(july2070);
+        temps.push(july2070);
+        var tempCity = 
+            {
+            label: cityName,
+            data: temps, 
+            chartNumber: station, 
+            backgroundColor: [
+                'rgba(' + (Math.random() * 300).toString() + ',' + + (Math.random() * 300).toString() + ',' + (Math.random() * 300).toString() + ', 0.2)'
+            ],
+            borderColor: [
+                'rgba(21, 152, 243, 1)'
+            ],
+            borderWidth: 1
+        }
+
+        cities.push(tempCity);
 
         });
+};
+
+
 
     // Dropdown function 
         // Match city selected to array of 10 major cities 
@@ -156,13 +110,27 @@ function weatherCalc(a, b) {
 }
 
 function showChart(i) {
-    if (clickedCities.indexOf(cities[i]) < 0) {
-        clickedCities.push(cities[i]);
+if (i === 0) {
+    clickedCities.push(cities[i]);
+    chartOne(clickedCities);
+}
+else {
+    var index = cities.findIndex(function(city) {
+        return city.chartNumber === i;
+       })
+    //if (clickedCities.indexOf(cities[i]) < 0) {
+        clickedCities.push(cities[index]);
         chartOne(clickedCities);
-    }
+    //}
+}
 }
 
 function init() {
+    stations = [72530, 70273, 91182, 72244, 72295, 74486, 72202, 72278, 72408, 72405];
+    cityName = ['Chicago', 'Ancorage', 'Honolulu', 'Houston', 'Los Angeles', 'New York', 'Miami', 'Phoenix', 'Philadelphia', 'Washington, D.C.'];
+    for (i = 0; i < stations.length; i++) {
+        showData(stations[i], cityName[i]);
+    }
     showChart(0);
     /*$('.js-chart').empty();*/
     clickedCities = [];
@@ -177,9 +145,11 @@ function init() {
         // Dropdown function 
     
 $('.js-submit').on('click', function() {
-
-    chartNumber = $(this).attr('data-index');
+    var chartNumber = $(this).data('station');
+    console.log(chartNumber);
     showChart(chartNumber);
+    console.log(cities);
+    
 
 })
 
@@ -194,6 +164,7 @@ $('.js-clear').on('click', function() {
 })
 // init 
 init();
+console.log(cities);
     // Sample city (Chicago)
 
 });
