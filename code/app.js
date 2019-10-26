@@ -2,6 +2,7 @@ $(document).ready(function() {
 //jquery init 
 
 // variables
+var chicagoTemps = [];
     // City
 var clickedCities = [];
 var cities = [
@@ -15,7 +16,7 @@ var cities = [
     },
     {
     label: 'Chicago',
-    data: [30, 40, 50, 60, 70, 80, 90, 100, 110], 
+    data: chicagoTemps, 
     backgroundColor: [
         'rgba(21, 152, 243, 0.2)'
     ],
@@ -81,13 +82,34 @@ var cities = [
 
 // functions
 
+var increment = 0.4;
+
+function weatherCalc(a, b) {
+    return (Math.floor(((a * 1.8) + 32)) + (increment * b));
+};
+
+
     // Ajax call 
     $.ajax({
-        url: "https://api.meteostat.net/v1/history/monthly?station=72530&start=2009-01&end=2012-12&key=ELTLnGss",
+        url: "https://api.meteostat.net/v1/history/monthly?station=72530&start=2016-01&end=2016-12&key=ELTLnGss",
         method: "GET"
     })
         .then(function(response) {
         console.log(response);
+        var julyTemp = response.data[6].temperature_mean;
+        var july2020 = weatherCalc(julyTemp, 4);
+        chicagoTemps.push(july2020);
+        var july2030 = weatherCalc(julyTemp, 14);
+        chicagoTemps.push(july2030);
+        var july2040 = weatherCalc(julyTemp, 24);
+        chicagoTemps.push(july2040);
+        var july2050 = weatherCalc(julyTemp, 34);
+        chicagoTemps.push(july2050);
+        var july2060 = weatherCalc(julyTemp, 44);
+        chicagoTemps.push(july2060);
+        var july2070 = weatherCalc(julyTemp, 54);
+        chicagoTemps.push(july2070);
+
         });
 
     // Dropdown function 
