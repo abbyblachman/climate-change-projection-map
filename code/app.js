@@ -4,7 +4,16 @@ $(document).ready(function() {
 // variables
     // City
 var clickedCities = [];
-var cities = [{
+var cities = [
+    { label: '',
+    backgroundColor: [
+        'rgba(255, 255, 255, 0.2)'
+    ],
+    borderColor: [
+        'rgba(255, 255, 255, 1)'
+    ],
+    },
+    {
     label: 'Chicago',
     data: [30, 40, 50, 60, 70, 80, 90, 100, 110], 
     backgroundColor: [
@@ -49,7 +58,7 @@ var cities = [{
 },
 {
     label: 'Philadelphia',
-    data: [12, 34, 70, 80, 40, 50, 100, 40, 20], 
+    data: [12, 34, 70, 80, 40, 50, 100, 110, 20], 
     backgroundColor: [
         'rgba(23, 2, 118, 0.2)'
     ],
@@ -60,7 +69,7 @@ var cities = [{
 }, 
 {
     label: 'Dallas',
-    data: [6, 80, 12, 100, 3, 94, 20, 77, 2], 
+    data: [6, 80, 12, 100, 3, 94, 110, 77, 2], 
     backgroundColor: [
         'rgba(252, 62, 241, 0.2)'
     ],
@@ -71,6 +80,15 @@ var cities = [{
 }]
 
 // functions
+
+    // Ajax call 
+    $.ajax({
+        url: "https://api.meteostat.net/v1/history/monthly?station=72530&start=2009-01&end=2012-12&key=ELTLnGss",
+        method: "GET"
+    })
+        .then(function(response) {
+        console.log(response);
+        });
 
     // Dropdown function 
         // Match city selected to array of 10 major cities 
@@ -123,7 +141,8 @@ function showChart(i) {
 }
 
 function init() {
-    $('.js-chart').empty();
+    showChart(0);
+    /*$('.js-chart').empty();*/
     clickedCities = [];
 }
 
@@ -136,6 +155,7 @@ function init() {
         // Dropdown function 
     
 $('.js-submit').on('click', function() {
+
     chartNumber = $(this).attr('data-index');
     showChart(chartNumber);
 
@@ -146,7 +166,9 @@ $('.js-submit').on('click', function() {
 
     // Clear graph 
 $('.js-clear').on('click', function() {
-    init();
+    clickedCities = [];
+    showChart(0);
+    clickedCities = [];
 })
 // init 
 init();
