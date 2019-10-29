@@ -4,6 +4,7 @@ $(document).ready(function() {
 // variables
     // City
 var clickedCities = [];
+var increments = [];
 var cities = [
     { label: '',
     stationNumber: 0, 
@@ -17,15 +18,12 @@ var cities = [
 
 // functions
 
-var increment = 0.4;
 
-function weatherCalc(a, b) {
-    return (Math.floor(((a * 1.8) + 32)) + (increment * b));
-};
+
 
 
     // Ajax call 
-function showData(station, cityName) {
+function showData(station, cityName, increment) {
     $.ajax({
         url: "https://api.meteostat.net/v1/history/monthly?station=" + station + "&start=2016-01&end=2016-12&key=ELTLnGss",
         method: "GET"
@@ -33,17 +31,18 @@ function showData(station, cityName) {
         .then(function(response) {
         var temps = [];
         var julyTemp = response.data[6].temperature_mean;
-        var july2020 = weatherCalc(julyTemp, 4);
+        var july2020 = (Math.floor((julyTemp * 1.8) + 32) + increment * 4);
+        console.log(july2020);
         temps.push(july2020);
-        var july2030 = weatherCalc(julyTemp, 14);
+        var july2030 = (Math.floor((julyTemp * 1.8) + 32) + increment * 14);
         temps.push(july2030);
-        var july2040 = weatherCalc(julyTemp, 24);
+        var july2040 = (Math.floor((julyTemp * 1.8) + 32) + increment * 24);
         temps.push(july2040);
-        var july2050 = weatherCalc(julyTemp, 34);
+        var july2050 = (Math.floor((julyTemp * 1.8) + 32) + increment * 34);
         temps.push(july2050);
-        var july2060 = weatherCalc(julyTemp, 44);
+        var july2060 = (Math.floor((julyTemp * 1.8) + 32) + increment * 44);
         temps.push(july2060);
-        var july2070 = weatherCalc(julyTemp, 54);
+        var july2070 = (Math.floor((julyTemp * 1.8) + 32) + increment * 54);
         temps.push(july2070);
         var tempCity = 
             {
@@ -125,15 +124,73 @@ else {
 }
 }
 
+
+
 function init() {
-    stations = [72530, 70273, 91182, 72244, 72295, 74486, 72202, 72278, 72408, 72405];
-    cityName = ['Chicago', 'Ancorage', 'Honolulu', 'Houston', 'Los Angeles', 'New York', 'Miami', 'Phoenix', 'Philadelphia', 'Washington, D.C.'];
-    for (i = 0; i < stations.length; i++) {
-        showData(stations[i], cityName[i]);
-    }
-    showChart(0);
-    /*$('.js-chart').empty();*/
-    clickedCities = [];
+    function calcIncrement(stations) {
+        var stations = [72530, 70273, 91182, 72244, 72295, 74486, 72202, 72278, 72408, 72405];
+        for (j = 0; j < stations.length; j++) {
+            $.ajax({
+                url: `https://api.meteostat.net/v1/history/monthly?station=${stations[j]}&start=2009-01&end=2012-12&key=ELTLnGss`,
+                method: "GET"
+            })
+            .then(function(response) {
+                
+                //console.log(response);
+                var yearTempMean09 = 0;
+                var yearTempMean10 = 0;
+                var yearTempMean11 = 0;
+                var yearTempMean12 = 0;
+                for (i = 0; i < response.data.length; i++) {
+                    if (i < 12) {
+                        var monthTempMean = response.data[i].temperature_mean;
+                        yearTempMean09 = (yearTempMean09 + monthTempMean);
+                    };
+                    if (i > 11 && i < 24) {
+                        var monthTempMean = response.data[i].temperature_mean;
+                        yearTempMean10 = (yearTempMean10 + monthTempMean);
+                    };
+                    if (i > 23 && i < 36) {
+                        var monthTempMean = response.data[i].temperature_mean;
+                        yearTempMean11 = (yearTempMean11 + monthTempMean);
+                    };
+                    if (i > 35) {
+                        var monthTempMean = response.data[i].temperature_mean;
+                        yearTempMean12 = (yearTempMean12 + monthTempMean);
+                    };
+                }
+                var avg09 = (yearTempMean09 / 12);
+                var avg10 = (yearTempMean10 / 12);
+                var avg11 = (yearTempMean11 / 12);
+                var avg12 = (yearTempMean12 / 12);
+                var increment1 = (avg10 - avg09)
+                var increment2 = (avg11 - avg10)
+                var increment3 = (avg12 - avg11)
+                var incrementTotal = ((increment1 + increment2 + increment3) / 3)
+                increments.push(incrementTotal);
+                // example: .2
+                if (increments.length === 10 ) {
+                    var stations = [72530, 70273, 91182, 72244, 72295, 74486, 72202, 72278, 72408, 72405];
+                    var cityName = ['Chicago', 'Ancorage', 'Honolulu', 'Houston', 'Los Angeles', 'New York', 'Miami', 'Phoenix', 'Philadelphia', 'Washington, D.C.'];
+                    for (i = 0; i < stations.length; i++) {
+                        showData(stations[i], cityName[i], increments[i]);
+                        console.log(increments[i]);
+                    }
+                    showChart(0);
+                    /*$('.js-chart').empty();*/
+                    clickedCities = [];
+                }
+                
+            });
+            
+        }};
+    
+    calcIncrement();
+
+    /*for (i = 0; i < increments.length; i++) {
+    console.log(increments[i]);
+    }*/
+   
 }
 
 
@@ -146,9 +203,9 @@ function init() {
     
 $('.js-submit').on('click', function() {
     var chartNumber = $(this).data('station');
-    console.log(chartNumber);
+    //console.log(chartNumber);
     showChart(chartNumber);
-    console.log(cities);
+    //console.log(cities);
     
 
 })
@@ -164,7 +221,7 @@ $('.js-clear').on('click', function() {
 })
 // init 
 init();
-console.log(cities);
+//console.log(cities);
     // Sample city (Chicago)
 
 });
