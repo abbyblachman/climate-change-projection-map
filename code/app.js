@@ -66,64 +66,6 @@ function showData(station, cityName, increment) {
 
 
 
-    function calcIncrement() {
-    
-        $.ajax({
-            url: "https://api.meteostat.net/v1/history/monthly?station=72530&start=2009-01&end=2012-12&key=ELTLnGss",
-            method: "GET"
-        })
-            .then(function(response) {
-                console.log(response);
-                var yearTempMean09 = 0;
-                var yearTempMean10 = 0;
-                var yearTempMean11 = 0;
-                var yearTempMean12 = 0;
-                for (i = 0; i < response.data.length; i++) {
-                    
-                    if (i < 12) {
-                        
-                        var monthTempMean = response.data[i].temperature_mean;
-                        yearTempMean09 = (yearTempMean09 + monthTempMean);
-                        var tempAVG09 = (yearTempMean09 / 12);
-                        // console.log(tempAVG09);
-                    };
-                    if (i > 11 && i < 24) {
-                        
-                        var monthTempMean = response.data[i].temperature_mean;
-                        yearTempMean10 = (yearTempMean10 + monthTempMean);
-                        var tempAVG10 = (yearTempMean10 / 12)
-                        // console.log(TempAVG10);
-                    };
-                    if (i > 23 && i < 36) {
-                        
-                        var monthTempMean = response.data[i].temperature_mean;
-                        yearTempMean11 = (yearTempMean11 + monthTempMean);
-                        var tempAVG11 = (yearTempMean11 / 12)
-                        // console.log(TempAVG11);
-                    };
-                    if (i > 35) {
-                        
-                        var monthTempMean = response.data[i].temperature_mean;
-                        yearTempMean12 = (yearTempMean12 + monthTempMean);
-                        var tempAVG12 = (yearTempMean11 / 12)
-                        // console.log(TempAVG12);
-                    };              
-                }
-                var avg09 = (yearTempMean09 / 12);
-                var avg10 = (yearTempMean10 / 12);
-                var avg11 = (yearTempMean11 / 12);
-                var avg12 = (yearTempMean12 / 12);
-                
-                var increment1 = (avg10 - avg09)
-                var increment2 = (avg11 - avg10)
-                var increment3 = (avg12 - avg11)
-                var incrementTotal = ((increment1 + increment2 + increment3) / 3)
-            
-                return incrementTotal;
-            });
-        };
-
-
     // Dropdown function 
         // Match city selected to array of 10 major cities 
         // Ajax call for stations 
