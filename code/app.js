@@ -5,6 +5,7 @@ $(document).ready(function() {
     // City
 var clickedCities = [];
 var increments = [];
+var stationIncrements = [];
 var cities = [
     { label: '',
     stationNumber: 0, 
@@ -26,14 +27,14 @@ var cities = [
 
 function showData(station, cityName, increment) {
     $.ajax({
-        url: "https://api.meteostat.net/v1/history/monthly?station=" + station + "&start=2016-01&end=2016-12&key=ELTLnGss",
+        url: "https://api.meteostat.net/v1/history/monthly?station=" + station + "&start=2016-01&end=2016-12&key=lgCeHhGo",
         method: "GET"
     })
         .then(function(response) {
         var temps = [];
         var julyTemp = response.data[6].temperature_mean;
         var july2020 = (Math.floor((julyTemp * 1.8) + 32) + increment * 4);
-        console.log(july2020);
+        // console.log(july2020);
         temps.push(july2020);
         var july2030 = (Math.floor((julyTemp * 1.8) + 32) + increment * 14);
         temps.push(july2030);
@@ -129,57 +130,143 @@ else {
 
 function init() {
     function calcIncrement(stations) {
-        var stations = [72530, 70273, 91182, 72244, 72295, 74486, 72202, 72278, 72408, 72405];
+        var stations = [{station: 72530, city: 'Chicago'}, {station: 70273, city: 'Ancorage'}, {station: 91182, city: 'Honolulu'}, {station: 72295, city: 'Los Angeles'}, {station: 72202, city: 'Miami'}, {station: 72278, city: 'Phoenix'}, {station: 72408, city: 'Philadelphia'}, { station: 72405, city: 'Washington, D.C.'}];
         for (j = 0; j < stations.length; j++) {
             $.ajax({
-                url: `https://api.meteostat.net/v1/history/monthly?station=${stations[j]}&start=2009-01&end=2012-12&key=ELTLnGss`,
-                method: "GET"
+                url: `https://api.meteostat.net/v1/history/monthly?station=${stations[j].station}&start=1993-01&end=2012-12&key=lgCeHhGo`,
+                method: "GET",
+                custom: j, 
             })
             .then(function(response) {
-                
-                //console.log(response);
+                // console.log(this.custom);
+                console.log(response);
+                var yearTempMean01 = 0;
+                var yearTempMean02 = 0;
+                var yearTempMean03 = 0;
+                var yearTempMean04 = 0;
+                var yearTempMean05 = 0;
+                var yearTempMean06 = 0;
+                var yearTempMean07 = 0;
+                var yearTempMean08 = 0;
                 var yearTempMean09 = 0;
                 var yearTempMean10 = 0;
                 var yearTempMean11 = 0;
                 var yearTempMean12 = 0;
+                var yearTempMean13 = 0;
+                var yearTempMean14 = 0;
+                var yearTempMean15 = 0;
+                var yearTempMean16 = 0;
+                var yearTempMean17 = 0;
+                var yearTempMean18 = 0;
+                var yearTempMean19 = 0;
+                var yearTempMean20 = 0;
+
+
                 for (i = 0; i < response.data.length; i++) {
-                    if (i < 12) {
-                        var monthTempMean = response.data[i].temperature_mean;
-                        yearTempMean09 = (yearTempMean09 + monthTempMean);
+                    if (i === 6) {
+                        yearTempMean01 = response.data[6].temperature_mean;
                     };
-                    if (i > 11 && i < 24) {
-                        var monthTempMean = response.data[i].temperature_mean;
-                        yearTempMean10 = (yearTempMean10 + monthTempMean);
+                    if (i === 18) {
+                        yearTempMean02 = response.data[18].temperature_mean;
                     };
-                    if (i > 23 && i < 36) {
-                        var monthTempMean = response.data[i].temperature_mean;
-                        yearTempMean11 = (yearTempMean11 + monthTempMean);
+                    if (i === 30) {
+                        yearTempMean03 = response.data[30].temperature_mean;
                     };
-                    if (i > 35) {
-                        var monthTempMean = response.data[i].temperature_mean;
-                        yearTempMean12 = (yearTempMean12 + monthTempMean);
+                    if (i === 42) {
+                        yearTempMean04 = response.data[42].temperature_mean;
                     };
-                }
-                var avg09 = (yearTempMean09 / 12);
-                var avg10 = (yearTempMean10 / 12);
-                var avg11 = (yearTempMean11 / 12);
-                var avg12 = (yearTempMean12 / 12);
-                var increment1 = (avg10 - avg09)
-                var increment2 = (avg11 - avg10)
-                var increment3 = (avg12 - avg11)
-                var incrementTotal = ((increment1 + increment2 + increment3) / 3)
-                increments.push(incrementTotal);
+                    if (i === 54) {
+                        yearTempMean05 = response.data[54].temperature_mean;
+                    };
+                    if (i === 66) {
+                        yearTempMean06 = response.data[66].temperature_mean;
+                    };
+                    if (i === 78) {
+                        yearTempMean07 = response.data[78].temperature_mean;
+                    };
+                    if (i === 90) {
+                        yearTempMean08 = response.data[90].temperature_mean;
+                    };
+                    if (i === 102) {
+                        yearTempMean09 = response.data[102].temperature_mean;
+                    };
+                    if (i === 114) {
+                        yearTempMean10 = response.data[114].temperature_mean;
+                    };
+                    if (i === 126) {
+                        yearTempMean11 = response.data[126].temperature_mean;
+                    };
+                    if (i === 138) {
+                        yearTempMean12 = response.data[138].temperature_mean;
+                    };
+                    if (i === 150) {
+                        yearTempMean13 = response.data[150].temperature_mean;
+                    };
+                    if (i === 162) {
+                        yearTempMean14 = response.data[162].temperature_mean;
+                    };
+                    if (i === 174) {
+                        yearTempMean15 = response.data[174].temperature_mean;
+                    };
+                    if (i === 186) {
+                        yearTempMean16 = response.data[186].temperature_mean;
+                    };
+                    if (i === 198) {
+                        yearTempMean17 = response.data[198].temperature_mean;
+                    };
+                    if (i === 210) {
+                        yearTempMean18 = response.data[210].temperature_mean;
+                    };
+                    if (i === 222) {
+                        yearTempMean19 = response.data[222].temperature_mean;
+                    };
+                    if (i === 234) {
+                        yearTempMean20 = response.data[234].temperature_mean;
+                    }};
+                    
+                // these variables check the difference between each year difference and output a number that represents the incremental change from one year to the next //
+                var increment1 = (yearTempMean02 - yearTempMean01);
+                var increment2 = (yearTempMean03 - yearTempMean02);
+                var increment3 = (yearTempMean04 - yearTempMean03);
+                var increment4 = (yearTempMean05 - yearTempMean04);
+                var increment5 = (yearTempMean06 - yearTempMean05);
+                var increment6 = (yearTempMean07 - yearTempMean06);
+                var increment7 = (yearTempMean08 - yearTempMean07);
+                var increment8 = (yearTempMean09 - yearTempMean08);
+                var increment9 = (yearTempMean10 - yearTempMean09);
+                var increment10 = (yearTempMean11 - yearTempMean10);
+                var increment11 = (yearTempMean12 - yearTempMean11);
+                var increment12 = (yearTempMean13 - yearTempMean12);
+                var increment13 = (yearTempMean14 - yearTempMean13);
+                var increment14 = (yearTempMean15 - yearTempMean14);
+                var increment15 = (yearTempMean16 - yearTempMean15);
+                var increment16 = (yearTempMean17 - yearTempMean16);
+                var increment17 = (yearTempMean18 - yearTempMean17);
+                var increment18 = (yearTempMean19 - yearTempMean18);
+                var increment19 = (yearTempMean20 - yearTempMean19);
+
+                // this last variable takes all the increments and finds an average to determine a small scale incremental increase or decrease in temperature based on a 10 year check //
+                var incrementTotal = ((increment1 + increment2 + increment3 + increment4 + increment5 + increment6 + increment7 + increment8 + increment9 + increment10 + increment11 + increment12 + increment13 + increment14 + increment15 + increment16 + increment17 + increment18 + increment19) / 19)
+                var stationObject = {};
+                stationObject.station = stations[this.custom].station;
+                stationObject.city = stations[this.custom].city;
+                stationObject.incrementTotal = incrementTotal;
+                stationIncrements.push(stationObject);
+                
+                //increments.push(incrementTotal);
+                console.log(stationObject);
                 // example: .2
-                if (increments.length === 10 ) {
-                    var stations = [72530, 70273, 91182, 72244, 72295, 74486, 72202, 72278, 72408, 72405];
-                    var cityName = ['Chicago', 'Ancorage', 'Honolulu', 'Houston', 'Los Angeles', 'New York', 'Miami', 'Phoenix', 'Philadelphia', 'Washington, D.C.'];
-                    for (i = 0; i < stations.length; i++) {
-                        showData(stations[i], cityName[i], increments[i]);
-                        console.log(increments[i]);
+                if (stationIncrements.length === 8 ) {
+                    
+                    for (i = 0; i < stationIncrements.length; i++) {
+                        showData(stationIncrements[i].station, stationIncrements[i].city, stationIncrements[i].incrementTotal);
+                        //console.log(increments[i]);
+                        //console.log(cityName[i]);
                     }
                     showChart(0);
                     /*$('.js-chart').empty();*/
                     clickedCities = [];
+                    //console.log(clickedCities);
                 }
                 
             });
