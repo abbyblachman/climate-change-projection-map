@@ -1232,9 +1232,9 @@ form textarea {
 
 .forecast-container {
   width: 100%;
-  background: #323544;
-  display: table;
-  table-layout: fixed;
+  background: transparent;
+  display: flex;
+  table-layout: flex;
   width: 100%;
   overflow: hidden;
   border-radius: 10px;
@@ -1244,7 +1244,7 @@ form textarea {
     display: table-cell;
     vertical-align: top; }
     .forecast-container .forecast:nth-child(even) {
-      background-color: #262936; }
+      background-color: #323544; }
     @media screen and (max-width: 990px) {
       .forecast-container .forecast {
         display: block;
@@ -1314,6 +1314,7 @@ form textarea {
   .fullwidth-block .section-title {
     font-size: 36px;
     font-size: 2.5714285714em;
+    font-variant: small-caps;
     font-weight: 300;
     color: white; }
 
