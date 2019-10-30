@@ -133,13 +133,15 @@ function init() {
         var stations = [{station: 72530, city: 'Chicago'}, {station: 70273, city: 'Ancorage'}, {station: 91182, city: 'Honolulu'}, {station: 72295, city: 'Los Angeles'}, {station: 72202, city: 'Miami'}, {station: 72278, city: 'Phoenix'}, {station: 72408, city: 'Philadelphia'}, { station: 72405, city: 'Washington, D.C.'}];
         for (j = 0; j < stations.length; j++) {
             $.ajax({
-                url: `https://api.meteostat.net/v1/history/monthly?station=${stations[j].station}&start=2003-01&end=2012-12&key=lgCeHhGo`,
+                url: `https://api.meteostat.net/v1/history/monthly?station=${stations[j].station}&start=1993-01&end=2012-12&key=lgCeHhGo`,
                 method: "GET",
                 custom: j, 
             })
             .then(function(response) {
                 // console.log(this.custom);
-                // console.log(response);
+                console.log(response);
+                var yearTempMean01 = 0;
+                var yearTempMean02 = 0;
                 var yearTempMean03 = 0;
                 var yearTempMean04 = 0;
                 var yearTempMean05 = 0;
@@ -150,61 +152,101 @@ function init() {
                 var yearTempMean10 = 0;
                 var yearTempMean11 = 0;
                 var yearTempMean12 = 0;
+                var yearTempMean13 = 0;
+                var yearTempMean14 = 0;
+                var yearTempMean15 = 0;
+                var yearTempMean16 = 0;
+                var yearTempMean17 = 0;
+                var yearTempMean18 = 0;
+                var yearTempMean19 = 0;
+                var yearTempMean20 = 0;
+
+
                 for (i = 0; i < response.data.length; i++) {
-                    if (i < 12) {
-                        yearTempMean03 = response.data[6].temperature_mean;
+                    if (i === 6) {
+                        yearTempMean01 = response.data[6].temperature_mean;
                     };
-                    if (i > 11 && i < 24) {
-                        yearTempMean04 = response.data[18].temperature_mean;
+                    if (i === 18) {
+                        yearTempMean02 = response.data[18].temperature_mean;
                     };
-                    if (i > 23 && i < 36) {
-                        yearTempMean05 = response.data[30].temperature_mean;
+                    if (i === 30) {
+                        yearTempMean03 = response.data[30].temperature_mean;
                     };
-                    if (i > 35 && i < 48) {
-                        yearTempMean06 = response.data[42].temperature_mean;
+                    if (i === 42) {
+                        yearTempMean04 = response.data[42].temperature_mean;
                     };
-                    if (i > 47 && i < 60) {
-                        yearTempMean07 = response.data[54].temperature_mean;
+                    if (i === 54) {
+                        yearTempMean05 = response.data[54].temperature_mean;
                     };
-                    if (i > 59 && i < 72) {
-                        yearTempMean08 = response.data[66].temperature_mean;
+                    if (i === 66) {
+                        yearTempMean06 = response.data[66].temperature_mean;
                     };
-                    if (i > 71 && i < 84) {
-                        yearTempMean09 = response.data[78].temperature_mean;
+                    if (i === 78) {
+                        yearTempMean07 = response.data[78].temperature_mean;
                     };
-                    if (i > 83 && i < 96) {
-                        yearTempMean10 = response.data[90].temperature_mean;
+                    if (i === 90) {
+                        yearTempMean08 = response.data[90].temperature_mean;
                     };
-                    if (i > 95 && i < 108) {
-                        yearTempMean11 = response.data[102].temperature_mean;
+                    if (i === 102) {
+                        yearTempMean09 = response.data[102].temperature_mean;
                     };
-                    if (i > 109 && i < 120) {
-                        yearTempMean12 = response.data[114].temperature_mean;
+                    if (i === 114) {
+                        yearTempMean10 = response.data[114].temperature_mean;
                     };
-                }
-                // These variables take the ones above and divide by 12 to create an average temperature over the course of the year //
-                var avg03 = (yearTempMean03 / 12);
-                var avg04 = (yearTempMean04 / 12);
-                var avg05 = (yearTempMean05 / 12);
-                var avg06 = (yearTempMean06 / 12);
-                var avg07 = (yearTempMean07 / 12);
-                var avg08 = (yearTempMean08 / 12);
-                var avg09 = (yearTempMean09 / 12);
-                var avg10 = (yearTempMean10 / 12);
-                var avg11 = (yearTempMean11 / 12);
-                var avg12 = (yearTempMean12 / 12);
+                    if (i === 126) {
+                        yearTempMean11 = response.data[126].temperature_mean;
+                    };
+                    if (i === 138) {
+                        yearTempMean12 = response.data[138].temperature_mean;
+                    };
+                    if (i === 150) {
+                        yearTempMean13 = response.data[150].temperature_mean;
+                    };
+                    if (i === 162) {
+                        yearTempMean14 = response.data[162].temperature_mean;
+                    };
+                    if (i === 174) {
+                        yearTempMean15 = response.data[174].temperature_mean;
+                    };
+                    if (i === 186) {
+                        yearTempMean16 = response.data[186].temperature_mean;
+                    };
+                    if (i === 198) {
+                        yearTempMean17 = response.data[198].temperature_mean;
+                    };
+                    if (i === 210) {
+                        yearTempMean18 = response.data[210].temperature_mean;
+                    };
+                    if (i === 222) {
+                        yearTempMean19 = response.data[222].temperature_mean;
+                    };
+                    if (i === 234) {
+                        yearTempMean20 = response.data[234].temperature_mean;
+                    }};
+                    
                 // these variables check the difference between each year difference and output a number that represents the incremental change from one year to the next //
-                var increment1 = (avg04 - avg03)
-                var increment2 = (avg05 - avg04)
-                var increment3 = (avg06 - avg05)
-                var increment4 = (avg07 - avg06)
-                var increment5 = (avg08 - avg07)
-                var increment6 = (avg09 - avg08)
-                var increment7 = (avg10 - avg09)
-                var increment8 = (avg11 - avg10)
-                var increment9 = (avg12 - avg11)
+                var increment1 = (yearTempMean02 - yearTempMean01);
+                var increment2 = (yearTempMean03 - yearTempMean02);
+                var increment3 = (yearTempMean04 - yearTempMean03);
+                var increment4 = (yearTempMean05 - yearTempMean04);
+                var increment5 = (yearTempMean06 - yearTempMean05);
+                var increment6 = (yearTempMean07 - yearTempMean06);
+                var increment7 = (yearTempMean08 - yearTempMean07);
+                var increment8 = (yearTempMean09 - yearTempMean08);
+                var increment9 = (yearTempMean10 - yearTempMean09);
+                var increment10 = (yearTempMean11 - yearTempMean10);
+                var increment11 = (yearTempMean12 - yearTempMean11);
+                var increment12 = (yearTempMean13 - yearTempMean12);
+                var increment13 = (yearTempMean14 - yearTempMean13);
+                var increment14 = (yearTempMean15 - yearTempMean14);
+                var increment15 = (yearTempMean16 - yearTempMean15);
+                var increment16 = (yearTempMean17 - yearTempMean16);
+                var increment17 = (yearTempMean18 - yearTempMean17);
+                var increment18 = (yearTempMean19 - yearTempMean18);
+                var increment19 = (yearTempMean20 - yearTempMean19);
+
                 // this last variable takes all the increments and finds an average to determine a small scale incremental increase or decrease in temperature based on a 10 year check //
-                var incrementTotal = ((increment1 + increment2 + increment3 + increment4 + increment5 + increment6 + increment7 + increment8 + increment9) / 9)
+                var incrementTotal = ((increment1 + increment2 + increment3 + increment4 + increment5 + increment6 + increment7 + increment8 + increment9 + increment10 + increment11 + increment12 + increment13 + increment14 + increment15 + increment16 + increment17 + increment18 + increment19) / 19)
                 var stationObject = {};
                 stationObject.station = stations[this.custom].station;
                 stationObject.city = stations[this.custom].city;
