@@ -5,6 +5,7 @@ $(document).ready(function() {
     // City
 var clickedCities = [];
 var increments = [];
+var stationIncrements = [];
 var cities = [
     { label: '',
     stationNumber: 0, 
@@ -129,14 +130,15 @@ else {
 
 function init() {
     function calcIncrement(stations) {
-        var stations = [72530, 70273, 91182, 72244, 72295, 74486, 72202, 72278, 72408, 72405];
+        var stations = [{station: 72530, city: 'Chicago'}, {station: 70273, city: 'Ancorage'}, {station: 91182, city: 'Honolulu'}, {station: 72295, city: 'Los Angeles'}, {station: 72202, city: 'Miami'}, {station: 72278, city: 'Phoenix'}, {station: 72408, city: 'Philadelphia'}, { station: 72405, city: 'Washington, D.C.'}];
         for (j = 0; j < stations.length; j++) {
             $.ajax({
-                url: `https://api.meteostat.net/v1/history/monthly?station=${stations[j]}&start=2009-01&end=2012-12&key=ELTLnGss`,
-                method: "GET"
+                url: `https://api.meteostat.net/v1/history/monthly?station=${stations[j].station}&start=2009-01&end=2012-12&key=ELTLnGss`,
+                method: "GET",
+                custom: j, 
             })
             .then(function(response) {
-                
+                console.log(this.custom);
                 //console.log(response);
                 var yearTempMean09 = 0;
                 var yearTempMean10 = 0;
@@ -168,18 +170,25 @@ function init() {
                 var increment2 = (avg11 - avg10)
                 var increment3 = (avg12 - avg11)
                 var incrementTotal = ((increment1 + increment2 + increment3) / 3)
-                increments.push(incrementTotal);
+                var stationObject = {};
+                stationObject.station = stations[this.custom].station;
+                stationObject.city = stations[this.custom].city;
+                stationObject.incrementTotal = incrementTotal;
+                stationIncrements.push(stationObject);
+                //increments.push(incrementTotal);
+                console.log(stationObject);
                 // example: .2
-                if (increments.length === 10 ) {
-                    var stations = [72530, 70273, 91182, 72244, 72295, 74486, 72202, 72278, 72408, 72405];
-                    var cityName = ['Chicago', 'Ancorage', 'Honolulu', 'Houston', 'Los Angeles', 'New York', 'Miami', 'Phoenix', 'Philadelphia', 'Washington, D.C.'];
-                    for (i = 0; i < stations.length; i++) {
-                        showData(stations[i], cityName[i], increments[i]);
-                        console.log(increments[i]);
+                if (stationIncrements.length === 8 ) {
+                    
+                    for (i = 0; i < stationIncrements.length; i++) {
+                        showData(stationIncrements[i].station, stationIncrements[i].city, stationIncrements[i].incrementTotal);
+                        //console.log(increments[i]);
+                        //console.log(cityName[i]);
                     }
                     showChart(0);
                     /*$('.js-chart').empty();*/
                     clickedCities = [];
+                    //console.log(clickedCities);
                 }
                 
             });
