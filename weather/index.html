@@ -5,7 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1">
 		
-		<title>Climate Change Projections</title>
+		<title>Future Forecast Finder</title>
     <link rel="stylesheet" href="./main.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -57,16 +57,14 @@
 
 				</div>
 			</div> <!-- .site-header -->
-
 			<div class="hero" data-bg-image="images/banner.png">
 				<div class="container">
-					<form action="#" class="find-location">
-						<input type="text" placeholder="Find your location...">
-						<input type="submit" value="Find">
-					</form>
+						<input type="text" id="search-value" placeholder="Find your location...">
+						<input type="submit" id="search-button" value="Find">
 
 				</div>
 			</div>
+			<div id="forecast"></div>
 			<div class="forecast-table">
 				<div class="container">
 					<div class="forecast-container">
@@ -170,25 +168,25 @@
 						<div class="row">
 									<div class="col-md-3 col-sm-6">
 											<div class="live-camera">
-												<figure class="live-camera-cover"><img src="https://cameras-cam.cdn.weatherbug.net/NWYRS/2019/10/24/102420190658_l.jpg" class="imageContainer__ImageContainer-u53oka-0 dHghlq"></figure>
+												<figure class="live-camera-cover"><div class="container__Container-jymtqi-0 cYToHq"><a href="live-cameras.html" target="_blank"><img src="https://cameras-cam.cdn.weatherbug.net/NWYRS/2019/10/24/102420190658_l.jpg" class="imageContainer__ImageContainer-u53oka-0 dHghlq"></a></div></figure>
 												<h3 class="location">New York</h3>
 											</div>
 							</div>
 							<div class="col-md-3 col-sm-6">
 									<div class="live-camera">
-										<figure class="live-camera-cover"><div class="container__Container-jymtqi-0 cYToHq"><img src="https://cameras-cam.cdn.weatherbug.net/BRBKC/2019/10/24/102420190628_l.jpg" class="imageContainer__ImageContainer-u53oka-0 dHghlq"></div></figure>
+										<figure class="live-camera-cover"><div class="container__Container-jymtqi-0 cYToHq"><a href="live-cameras.html" target="_blank"><img src="https://cameras-cam.cdn.weatherbug.net/SPSDN/2019/10/25/102520191153_t.jpg" class="imageContainer__ImageContainer-u53oka-0 dHghlq"></a></div></figure>
 										<h3 class="location">Los Angeles</h3>
 									</div>
 							</div>
 							<div class="col-md-3 col-sm-6">
 									<div class="live-camera">
-										<figure class="live-camera-cover"><div class="container__Container-jymtqi-0 cYToHq"><img src="https://cameras-cam.cdn.weatherbug.net/CHCBR/2019/10/24/102420190044_l.jpg" class="imageContainer__ImageContainer-u53oka-0 dHghlq"></div></figure>
+										<figure class="live-camera-cover"><div class="container__Container-jymtqi-0 cYToHq"><a href="live-cameras.html" target="_blank"><img src="https://cameras-cam.cdn.weatherbug.net/CHGIL/2019/10/25/102520191416_t.jpg" class="imageContainer__ImageContainer-u53oka-0 dHghlq"></a></div></figure>
 										<h3 class="location">Chicago</h3>
 									</div>
 							</div>
 							<div class="col-md-3 col-sm-6">
 								<div class="live-camera">
-									<figure class="live-camera-cover"><div class="container__Container-jymtqi-0 cYToHq"><img src="https://cameras-cam.cdn.weatherbug.net/STHOU/2019/10/24/102420190440_l.jpg" class="imageContainer__ImageContainer-u53oka-0 dHghlq"></div></figure>
+									<figure class="live-camera-cover"><div class="container__Container-jymtqi-0 cYToHq"><a href="live-cameras.html" target="_blank"><img src="https://cameras-cam.cdn.weatherbug.net/HSTNU/2019/10/25/102520191401_t.jpg" class="imageContainer__ImageContainer-u53oka-0 dHghlq"></a></div></figure>
 									<h3 class="location">Houston</h3>
 								</div>
 							</div>
@@ -300,6 +298,7 @@
 		<script src="js/jquery-1.11.1.min.js"></script>
 		<script src="js/plugins.js"></script>
 		<script src="js/app.js"></script>
+		<script src="forecast.js"></script>
 		
 	</body>
 
