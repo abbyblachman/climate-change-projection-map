@@ -27,14 +27,14 @@ var cities = [
 
 function showData(station, cityName, increment) {
     $.ajax({
-        url: "https://api.meteostat.net/v1/history/monthly?station=" + station + "&start=2016-01&end=2016-12&key=ELTLnGss",
+        url: "https://api.meteostat.net/v1/history/monthly?station=" + station + "&start=2016-01&end=2016-12&key=lgCeHhGo",
         method: "GET"
     })
         .then(function(response) {
         var temps = [];
         var julyTemp = response.data[6].temperature_mean;
         var july2020 = (Math.floor((julyTemp * 1.8) + 32) + increment * 4);
-        console.log(july2020);
+        // console.log(july2020);
         temps.push(july2020);
         var july2030 = (Math.floor((julyTemp * 1.8) + 32) + increment * 14);
         temps.push(july2030);
@@ -133,48 +133,84 @@ function init() {
         var stations = [{station: 72530, city: 'Chicago'}, {station: 70273, city: 'Ancorage'}, {station: 91182, city: 'Honolulu'}, {station: 72295, city: 'Los Angeles'}, {station: 72202, city: 'Miami'}, {station: 72278, city: 'Phoenix'}, {station: 72408, city: 'Philadelphia'}, { station: 72405, city: 'Washington, D.C.'}];
         for (j = 0; j < stations.length; j++) {
             $.ajax({
-                url: `https://api.meteostat.net/v1/history/monthly?station=${stations[j].station}&start=2009-01&end=2012-12&key=ELTLnGss`,
+                url: `https://api.meteostat.net/v1/history/monthly?station=${stations[j].station}&start=2003-01&end=2012-12&key=lgCeHhGo`,
                 method: "GET",
                 custom: j, 
             })
             .then(function(response) {
-                console.log(this.custom);
-                //console.log(response);
+                // console.log(this.custom);
+                // console.log(response);
+                var yearTempMean03 = 0;
+                var yearTempMean04 = 0;
+                var yearTempMean05 = 0;
+                var yearTempMean06 = 0;
+                var yearTempMean07 = 0;
+                var yearTempMean08 = 0;
                 var yearTempMean09 = 0;
                 var yearTempMean10 = 0;
                 var yearTempMean11 = 0;
                 var yearTempMean12 = 0;
                 for (i = 0; i < response.data.length; i++) {
                     if (i < 12) {
-                        var monthTempMean = response.data[i].temperature_mean;
-                        yearTempMean09 = (yearTempMean09 + monthTempMean);
+                        yearTempMean03 = response.data[6].temperature_mean;
                     };
                     if (i > 11 && i < 24) {
-                        var monthTempMean = response.data[i].temperature_mean;
-                        yearTempMean10 = (yearTempMean10 + monthTempMean);
+                        yearTempMean04 = response.data[18].temperature_mean;
                     };
                     if (i > 23 && i < 36) {
-                        var monthTempMean = response.data[i].temperature_mean;
-                        yearTempMean11 = (yearTempMean11 + monthTempMean);
+                        yearTempMean05 = response.data[30].temperature_mean;
                     };
-                    if (i > 35) {
-                        var monthTempMean = response.data[i].temperature_mean;
-                        yearTempMean12 = (yearTempMean12 + monthTempMean);
+                    if (i > 35 && i < 48) {
+                        yearTempMean06 = response.data[42].temperature_mean;
+                    };
+                    if (i > 47 && i < 60) {
+                        yearTempMean07 = response.data[54].temperature_mean;
+                    };
+                    if (i > 59 && i < 72) {
+                        yearTempMean08 = response.data[66].temperature_mean;
+                    };
+                    if (i > 71 && i < 84) {
+                        yearTempMean09 = response.data[78].temperature_mean;
+                    };
+                    if (i > 83 && i < 96) {
+                        yearTempMean10 = response.data[90].temperature_mean;
+                    };
+                    if (i > 95 && i < 108) {
+                        yearTempMean11 = response.data[102].temperature_mean;
+                    };
+                    if (i > 109 && i < 120) {
+                        yearTempMean12 = response.data[114].temperature_mean;
                     };
                 }
+                // These variables take the ones above and divide by 12 to create an average temperature over the course of the year //
+                var avg03 = (yearTempMean03 / 12);
+                var avg04 = (yearTempMean04 / 12);
+                var avg05 = (yearTempMean05 / 12);
+                var avg06 = (yearTempMean06 / 12);
+                var avg07 = (yearTempMean07 / 12);
+                var avg08 = (yearTempMean08 / 12);
                 var avg09 = (yearTempMean09 / 12);
                 var avg10 = (yearTempMean10 / 12);
                 var avg11 = (yearTempMean11 / 12);
                 var avg12 = (yearTempMean12 / 12);
-                var increment1 = (avg10 - avg09)
-                var increment2 = (avg11 - avg10)
-                var increment3 = (avg12 - avg11)
-                var incrementTotal = ((increment1 + increment2 + increment3) / 3)
+                // these variables check the difference between each year difference and output a number that represents the incremental change from one year to the next //
+                var increment1 = (avg04 - avg03)
+                var increment2 = (avg05 - avg04)
+                var increment3 = (avg06 - avg05)
+                var increment4 = (avg07 - avg06)
+                var increment5 = (avg08 - avg07)
+                var increment6 = (avg09 - avg08)
+                var increment7 = (avg10 - avg09)
+                var increment8 = (avg11 - avg10)
+                var increment9 = (avg12 - avg11)
+                // this last variable takes all the increments and finds an average to determine a small scale incremental increase or decrease in temperature based on a 10 year check //
+                var incrementTotal = ((increment1 + increment2 + increment3 + increment4 + increment5 + increment6 + increment7 + increment8 + increment9) / 9)
                 var stationObject = {};
                 stationObject.station = stations[this.custom].station;
                 stationObject.city = stations[this.custom].city;
                 stationObject.incrementTotal = incrementTotal;
                 stationIncrements.push(stationObject);
+                
                 //increments.push(incrementTotal);
                 console.log(stationObject);
                 // example: .2
