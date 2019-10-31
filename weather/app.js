@@ -52,7 +52,7 @@ function showData(station, cityName, increment) {
             data: temps, 
             chartNumber: station, 
             backgroundColor: [
-                'rgba(' + (Math.random() * ((Math.random() + Math.random()) * 500)).toString() + ',' + + (Math.random() * ((Math.random() + Math.random()) * 500)).toString() + ',' + (Math.random() * ((Math.random() + Math.random()) * 500)).toString() + ', 0.5)'
+                'rgba(' + (Math.random() * ((Math.random() + Math.random()) * 500)).toString() + ',' + + (Math.random() * ((Math.random() + Math.random()) * 500)).toString() + ',' + (Math.random() * ((Math.random() + Math.random()) * 500)).toString() + ', 0.2)'
             ],
             borderColor: [
                 'rgba(0, 0, 0, 1)'
