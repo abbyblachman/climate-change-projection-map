@@ -52,7 +52,25 @@ body {
   padding: 0px;
   overflow-x: hidden;
  }
+ .search-button button {
+  margin-right: 0px;
+  background-color: transparent; /* Blended background */
+  border: 1px solid transparent; /* Blended border */
+  color: white; /* White text */
+  padding: 16px 36px; /* Some padding */
+  cursor: pointer; /* Pointer/hand icon */
+  width: 55%; /* Set a width if needed */
+  display: block; /* Make the buttons appear below each other */
+}
 
+.search-button button:not(:last-child) {
+  border-bottom: none; /* Prevent double borders */
+}
+
+/* Add a background color on hover */
+.search-button button:hover {
+  background-color: #009ad8;
+}
   .submit-button button {
     float: right;
     margin-right: 0px;
@@ -95,6 +113,7 @@ a {
 
 h1 {
   font-size: 2em;
+  text-align: center;
   margin: 0.67em 0; }
 
 h2 {
@@ -1173,6 +1192,10 @@ form textarea {
       display: block;
       color: #bfc1c8; }
 
+.main-content {
+  padding-top: 24px;
+}
+
 .main-navigation {
   float: right; }
   .main-navigation .menu-toggle, .main-navigation .menu {
@@ -1266,6 +1289,7 @@ form textarea {
     padding: 0 40px; }
 
 .forecast-container {
+  padding-top: 64px;
   width: 100%;
   background: transparent;
   display: flex;
@@ -1283,7 +1307,6 @@ form textarea {
     @media screen and (max-width: 990px) {
       .forecast-container .forecast {
         display: block;
-        overflow: auto;
         width: 100%;
         float: left; } }
     .forecast-container .forecast.today {
@@ -1294,7 +1317,6 @@ form textarea {
           content: " ";
           clear: both;
           display: block;
-          overflow: hidden;
           height: 0; }
         .forecast-container .forecast.today .forecast-header .day {
           float: left; }
