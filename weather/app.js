@@ -10,10 +10,10 @@ var cities = [
     { label: '',
     stationNumber: 0, 
     backgroundColor: [
-        'rgba(255, 255, 255, 0.2)'
+        'rgba(255, 255, 255, 0)'
     ],
     borderColor: [
-        'rgba(255, 255, 255, 1)'
+        'rgba(255, 255, 255, 0)'
     ],
     }]
 
