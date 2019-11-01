@@ -136,7 +136,7 @@ function calcIncrement(stations) {
         })
         .then(function(response) {
             // console.log(this.custom);
-            console.log(response);
+            //console.log(response);
             var yearTempMean01 = 0;
             var yearTempMean02 = 0;
             var yearTempMean03 = 0;
@@ -251,7 +251,7 @@ function calcIncrement(stations) {
             stationIncrements.push(stationObject);
             
             //increments.push(incrementTotal);
-            console.log(stationObject);
+            //console.log(stationObject);
             // example: .2
             if (stationIncrements.length === 8 ) {
                 
@@ -290,8 +290,15 @@ function init() {
 $('.js-submit').on('click', function() {
     var chartNumber = $(this).data('station');
     //console.log(chartNumber);
-    showChart(chartNumber);
+    var clicked = clickedCities.find(city => city.chartNumber === chartNumber); 
+    if ($.isEmptyObject(clicked)) {
+        showChart(chartNumber);
+    }
     //console.log(cities);
+    //console.log(clickedCities);
+    //console.log(i);
+   
+   //console.log(clicked);
     
 
 })

@@ -1,6 +1,7 @@
 $(document).ready(function() {
   // change search-button, search-value
   $("#search-button").on("click", function() {
+    $('#forecast').empty();
     var searchValue = $("#search-value").val();
     // clear input box
     $("#search-value").val("");
